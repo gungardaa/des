@@ -40,7 +40,7 @@ def main():
             conn.connect((HOST, PORT)); break
         except ConnectionRefusedError:
             print("[receiver] menunggu sender..."); time.sleep(1)
-    print("[receiver] terhubung. Bisa chat bolak-balik. Ketik 'exit' untuk keluar.")
+    print("[receiver] terhubung. Silakan kirim pesan. Ketik 'exit' untuk keluar.")
     threading.Thread(target=listen_loop, args=(conn, key), daemon=True).start()
     try:  # Ctrl+C saat input() di Windows baru diproses setelah Enter
         while True:  # loop pengirim: enkripsi DES lalu kirim

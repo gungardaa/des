@@ -39,7 +39,7 @@ def main():
     srv.bind((BIND_HOST, PORT)); srv.listen(1)
     print(f"[sender] listen {BIND_HOST}:{PORT}, menunggu receiver...")
     conn, addr = srv.accept()
-    print(f"[sender] terhubung {addr}. Bisa chat bolak-balik. Ketik 'exit' untuk keluar.")
+    print(f"[sender] terhubung {addr}. Silakan kirim pesan. Ketik 'exit' untuk keluar.")
     threading.Thread(target=listen_loop, args=(conn, key), daemon=True).start()
     try:  # Ctrl+C saat input() di Windows baru diproses setelah Enter
         while True:  # loop pengirim: plaintext -> DES encrypt -> kirim ciphertext
