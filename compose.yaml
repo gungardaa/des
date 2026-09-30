@@ -1,0 +1,31 @@
+services:
+  sender:  # pihak A, listen 0.0.0.0:5050
+    build: .
+    container_name: des-sender
+    command: ["python", "sender.py"]
+    environment:
+      DES_KEY: "RAHASIA1"  # pre-shared key, tidak dikirim via jaringan (sama di kedua sisi)
+    expose:
+      - "5050"
+    stdin_open: true  # + tty di bawah = bisa ketik via `docker attach`
+    tty: true
+    networks:
+      des-net:
+
+  receiver:  # pihak B, connect ke hostname "sender" (DNS otomatis compose)
+    build: .
+    container_name: des-receiver
+    command: ["python", "receiver.py"]
+    environment:
+      SENDER_HOST: sender
+      DES_KEY: "RAHASIA1"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - sender
+    networks:
+      des-net:
+
+networks:
+  des-net:
+    driver: bridge
